@@ -93,3 +93,8 @@ Diagram można wyświetlić na stronie:
 http://www.webgraphviz.com
 
 ![Graph](docs/graph.png)
+
+
+## Biblioteka Arduino
+**Automaton** A multi tasking table driven finite state machine framework
+https://www.arduinolibraries.info/libraries/automaton
