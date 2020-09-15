@@ -92,4 +92,9 @@ Blinking -> Off [style="solid", label="Push"];
 Diagram można wyświetlić na stronie:
 http://www.webgraphviz.com
 
-![Graph](graph.png)
+![Graph](docs/graph.png)
+
+
+## Biblioteka Arduino
+**Automaton**
+https://www.arduinolibraries.info/libraries/automaton
