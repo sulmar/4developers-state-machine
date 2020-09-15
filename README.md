@@ -8,6 +8,16 @@ Maszyna stanów może wydawać się nudną, matematyczną koncepcją, o której 
 ## Wymagania
 - .NET Core 3.1
 
+## Abstrakt
+Maszyna stanów to zbiór stanów _states_ (s1, s2 ... sN) oraz przejść _triggers_ (t1, t2 ... tN). 
+Obiekt może znajdować się w jednym momencie tylko w jednym ze stanów.
+Na początku maszyna stanów przyjmuje stan początkowy. Przejścia pomiędzy stanami następują za pomocą triggerów.
+
+![State machine abstract](docs/state-machine-abstract.png)
+
+## Przykład
+![State machine Lamp](docs/state-machine-lamp.png)
+
 ## Instalacja biblioteki
 
 ~~~ bash
