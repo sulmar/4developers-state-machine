@@ -96,5 +96,5 @@ http://www.webgraphviz.com
 
 
 ## Biblioteka Arduino
-**Automaton** A multi tasking table driven finite state machine framework
+**Automaton**
 https://www.arduinolibraries.info/libraries/automaton
