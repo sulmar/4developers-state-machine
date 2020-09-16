@@ -10,7 +10,7 @@ namespace _4developers.StateMachineDemo
         {
             Console.WriteLine("Hello 4developers 2020!");
 
-            LampProxy lamp = new LampProxy();
+            LampProxy lamp = new LampProxy(new LampStateMachine());
 
             Console.WriteLine(lamp.Graph);
 
@@ -48,36 +48,37 @@ namespace _4developers.StateMachineDemo
         }
     }
 
-   // dotnet add package Stateless
+    // dotnet add package Stateless
 
-
-    public class LampProxy : Lamp
+    public class LampStateMachine : StateMachine<LampState, LampTrigger>
     {
-      
-        public override LampState State => machine.State;
-
-        private StateMachine<LampState, LampTrigger> machine;
-
-
-        public string Graph => Stateless.Graph.UmlDotGraph.Format(machine.GetInfo());
-
-        public LampProxy()
+        public LampStateMachine()
+            : base(LampState.Off)
         {
-            // State = LampState.Off;
-
-            machine = new StateMachine<LampState, LampTrigger>(LampState.Off);
-
-            machine.Configure(LampState.Off)
+            Configure(LampState.Off)
                 .Permit(LampTrigger.Push, LampState.On);
 
-            machine.Configure(LampState.On)
+            Configure(LampState.On)
                 .Permit(LampTrigger.Push, LampState.Blinking)
                 .OnEntry(() => Console.WriteLine("Send sms "), "Send sms");
 
-            machine.Configure(LampState.Blinking)
+            Configure(LampState.Blinking)
                 .Permit(LampTrigger.Push, LampState.Off);
-
         }
+    }
+
+    public class LampProxy : Lamp
+    {
+        public override LampState State => machine.State;
+
+        private readonly StateMachine<LampState, LampTrigger> machine;
+
+        public LampProxy(StateMachine<LampState, LampTrigger> machine)
+        {
+            this.machine = machine;
+        }
+
+        public string Graph => Stateless.Graph.UmlDotGraph.Format(machine.GetInfo());
 
         public override void Push() => machine.Fire(LampTrigger.Push);
     }
@@ -85,6 +86,11 @@ namespace _4developers.StateMachineDemo
     public class Lamp
     {
         public virtual LampState State { get; set; }
+
+        public Lamp()
+        {
+            State = LampState.Off;
+        }
 
         public virtual void Push()
         {
