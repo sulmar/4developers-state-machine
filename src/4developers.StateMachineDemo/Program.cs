@@ -80,6 +80,8 @@ namespace _4developers.StateMachineDemo
 
         public string Graph => Stateless.Graph.UmlDotGraph.Format(machine.GetInfo());
 
+        public override bool CanPush => machine.CanFire(LampTrigger.Push);
+
         public override void Push() => machine.Fire(LampTrigger.Push);
     }
 
@@ -91,6 +93,9 @@ namespace _4developers.StateMachineDemo
         {
             State = LampState.Off;
         }
+
+
+        public virtual bool CanPush { get; }
 
         public virtual void Push()
         {
