@@ -10,9 +10,7 @@ namespace _4developers.StateMachineDemo
         {
             Console.WriteLine("Hello 4developers 2020!");
 
-            LampProxy lamp = new LampProxy(new LampStateMachine());
-
-            Console.WriteLine(lamp.Graph);
+            Lamp lamp = new LampProxy(new LampStateMachine());
 
             Dump(lamp.State);
 
@@ -52,6 +50,8 @@ namespace _4developers.StateMachineDemo
 
     public class LampStateMachine : StateMachine<LampState, LampTrigger>
     {
+        public string Graph => Stateless.Graph.UmlDotGraph.Format(this.GetInfo());
+
         public LampStateMachine()
             : base(LampState.Off)
         {
@@ -64,6 +64,8 @@ namespace _4developers.StateMachineDemo
 
             Configure(LampState.Blinking)
                 .Permit(LampTrigger.Push, LampState.Off);
+
+            Console.WriteLine(this.Graph);
         }
     }
 
@@ -77,8 +79,6 @@ namespace _4developers.StateMachineDemo
         {
             this.machine = machine;
         }
-
-        public string Graph => Stateless.Graph.UmlDotGraph.Format(machine.GetInfo());
 
         public override bool CanPush => machine.CanFire(LampTrigger.Push);
 
