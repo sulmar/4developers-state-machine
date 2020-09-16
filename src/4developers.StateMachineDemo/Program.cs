@@ -10,7 +10,7 @@ namespace _4developers.StateMachineDemo
         {
             Console.WriteLine("Hello 4developers 2020!");
 
-            Lamp lamp = new Lamp();
+            LampProxy lamp = new LampProxy();
 
             Console.WriteLine(lamp.Graph);
 
@@ -50,18 +50,18 @@ namespace _4developers.StateMachineDemo
 
    // dotnet add package Stateless
 
-    public class Lamp
-    {
-        // public LampState State { get; set; }
 
-        public LampState State => machine.State;
+    public class LampProxy : Lamp
+    {
+      
+        public override LampState State => machine.State;
 
         private StateMachine<LampState, LampTrigger> machine;
 
+
         public string Graph => Stateless.Graph.UmlDotGraph.Format(machine.GetInfo());
 
-
-        public Lamp()
+        public LampProxy()
         {
             // State = LampState.Off;
 
@@ -79,9 +79,16 @@ namespace _4developers.StateMachineDemo
 
         }
 
-        public void Push() => machine.Fire(LampTrigger.Push);
+        public override void Push() => machine.Fire(LampTrigger.Push);
+    }
 
+    public class Lamp
+    {
+        public virtual LampState State { get; set; }
 
+        public virtual void Push()
+        {
+        }
     }
 
     public enum LampState
