@@ -100,7 +100,11 @@ Blinking -> Off [style="solid", label="Push"];
 
 ## Wizualizacja grafu
 Diagram można wyświetlić na stronie:
-http://www.webgraphviz.com
+
+- http://www.webgraphviz.com
+- https://dreampuf.github.io/GraphvizOnlin
+
+
 
 ![Graph](docs/graph.png)
 
